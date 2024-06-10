@@ -5,7 +5,7 @@ env:
   # Tip: Die Token/der API-Key werden als Secrets in den Repository-Settings eingetragen und hier referenziert.
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-  GITHUB_ACCESSTOKEN: ${{ secrets.GITHUB_ACCESSTOKEN }}
+  GITHUB_ACCESSTOKEN: ${{ secrets.GITHUB_AT }}
 jobs:
   compile:
     name: Compile
