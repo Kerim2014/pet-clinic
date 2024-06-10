@@ -25,11 +25,11 @@ jobs:
       run: |
           mvn package
 
-    -name: Docker Build
+    - name: Docker Build
       run: |
           docker build --tag ghcr.io/kerim2014/pet-clinic:latest -f Dockerfile .
 
-    -name: Docker Login
+    - name: Docker Login
       run: |
           docker login --username kerim2014 --password $GITHUB_ACCESSTOKEN ghcr.io
       
