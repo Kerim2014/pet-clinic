@@ -20,10 +20,19 @@ jobs:
     #### AUFGABE 2: SONAR
       # hier ist der Platz für die Konfiguration der Sonar Analyse
   
-    - name: Compile, build and push
+    - name: Compile
       run: |
         #### AUFGABE 3 COMPILE, DOCKER BUILD UND PUSH
           mvn package
+
+    -name: Docker Build and Push
+      run: |
           docker build --tag ghcr.io/kerim2014/pet-clinic:latest -f Dockerfile .
-          docker login --username kerim2014 --password $GITHUB_ACCESSTOKEN ghcr.io
+
+    -name: Docker Login
+      run: |
+          docker login --username kerim2014 --password $serets.GITHUB_ACCESSTOKEN ghcr.io
+      
+    - name: Docker Push
+      run: |
           docker push ghcr.io/kerim2014/pet-clinic:latest
