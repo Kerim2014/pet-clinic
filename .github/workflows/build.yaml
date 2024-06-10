@@ -23,9 +23,18 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-      - name: Compile, build and push
+      - name: Compile
         run: |
           mvn package
+
+      - name: Build
+        run: |
           docker build --tag ghcr.io/kerim2014/pet-clinic:latest -f Dockerfile .
+
+      - name: Login
+        run: |
           docker login --username kerim2014 --password $GITHUB_ACCESSTOKEN ghcr.io
+          
+      - name: Push
+        run: |
           docker push ghcr.io/kerim2014/pet-clinic:latest
