@@ -1,7 +1,7 @@
 name: Docker Build and Release
-on: [push]
+on: [ push ]
 env:
-  #### An dieser Stelle müssen eure persönlichen Umgebungsvariablen eingetragen werden
+#### An dieser Stelle müssen eure persönlichen Umgebungsvariablen eingetragen werden
   # Tip: Die Token/der API-Key werden als Secrets in den Repository-Settings eingetragen und hier referenziert.
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -11,28 +11,28 @@ jobs:
     name: Compile
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup Java
-        uses: actions/setup-java@v2
-        with:
-          distribution: temurin
-          java-version: 11
-          cache: maven
-      #### AUFGABE 2: SONAR
-        # hier ist der Platz für die Konfiguration der Sonar Analyse
-      
-      - name: Maven Compile
-        run: |
+    - uses: actions/checkout@v2
+    - name: Setup Java
+      uses: actions/setup-java@v2
+      with:
+        distribution: temurin
+        java-version: 11
+        cache: maven
+    #### AUFGABE 2: SONAR
+      # hier ist der Platz für die Konfiguration der Sonar Analyse
+  
+    - name: Maven Compile
+      run: |
           mvn package
 
-      - name: Docker Build
-        run: |
+    -name: Docker Build
+      run: |
           docker build --tag ghcr.io/kerim2014/pet-clinic:latest -f Dockerfile .
 
-      - name: Docker Login
-        run: |
-          echo $GITHUB_ACCESSTOKEN | docker login ghcr.io -u kerim2014 --password-stdin
-
-      - name: Docker Push
-        run: |
+    -name: Docker Login
+      run: |
+          docker login --username kerim2014 --password $GITHUB_ACCESSTOKEN ghcr.io
+      
+    - name: Docker Push
+      run: |
           docker push ghcr.io/kerim2014/pet-clinic:latest
