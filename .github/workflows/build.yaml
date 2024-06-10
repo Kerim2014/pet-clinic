@@ -5,6 +5,7 @@ env:
   # Tip: Die Token/der API-Key werden als Secrets in den Repository-Settings eingetragen und hier referenziert.
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  GITHUB_ACCESSTOKEN: ${{ secrets.GITHUB_ACCESSTOKEN }}
 jobs:
   compile:
     name: Compile
@@ -22,7 +23,6 @@ jobs:
   
     - name: Compile
       run: |
-        #### AUFGABE 3 COMPILE, DOCKER BUILD UND PUSH
           mvn package
 
     -name: Docker Build and Push
@@ -31,7 +31,7 @@ jobs:
 
     -name: Docker Login
       run: |
-          docker login --username kerim2014 --password $serets.GITHUB_ACCESSTOKEN ghcr.io
+          docker login --username kerim2014 --password $GITHUB_ACCESSTOKEN ghcr.io
       
     - name: Docker Push
       run: |
